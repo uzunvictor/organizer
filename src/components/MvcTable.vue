@@ -2,6 +2,7 @@
   <div>
     <div class="blur-background"></div>
     <div class="table-container">
+      <div class="info">{{ monthsData[month] }} {{ year }}</div>
       <table class="table">
         <thead>
           <tr>
@@ -16,6 +17,10 @@
         </thead>
         <tbody class="body"></tbody>
       </table>
+      <div class="nav">
+        <a class="prev" @click="prev">nazad</a>
+        <a class="next" @click="next">vpered</a>
+      </div>
     </div>
   </div>
 </template>
@@ -24,29 +29,60 @@
 export default {
   name: "MvcTable",
 
+  data() {
+    return {
+      daysData: [
+        "Воскресенье",
+        "Понедельник",
+        "Вторник",
+        "Среда",
+        "Четверг",
+        "Пятница",
+        "Суббота",
+      ],
+      monthsData: [
+        "январь",
+        "февраль",
+        "март",
+        "апрель",
+        "май",
+        "июнь",
+        "июль",
+        "август",
+        "сентябрь",
+        "октябрь",
+        "ноябрь",
+        "декабрь",
+      ],
+      today: new Date(),
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
+    };
+  },
+
   mounted() {
+    //this.$store.dispatch("start");
     this.createTable();
-    // console.log("daysArray", this.daysArray);
-    // console.log("normalizeDaysArray: ", this.normalizeDaysArray);
-    // console.log("chunkNormalizedArray: ", this.chunkNormalizedArray);
-    // console.log("getLastWeekDay: ", this.getLastWeekDay);
+    console.log("year", this.year);
   },
 
   computed: {
-    today() {
-      return new Date();
-    },
-    year() {
-      return this.today.getFullYear();
-    },
-    month() {
-      return this.today.getMonth();
-    },
+    // year() {
+    //   return this.today.getFullYear();
+    // },
+    // month: {
+    //   get() {
+    //     return this.today.getMonth();
+    //   },
+    //   set(value) {
+    //     return value;
+    //   },
+    // },
     daysInMonth() {
       return new Date(this.year, this.month + 1, 0).getDate();
     },
     getFirstWeekDay() {
-      return new Date(this.year + "-" + (this.month + 1) + "-01").getDay() - 1;
+      return new Date(this.year + "-" + (this.month + 1) + "-01").getDay();
     },
     getLastWeekDay() {
       return new Date(
@@ -58,9 +94,9 @@ export default {
     },
     normalizedArray() {
       return [
-        ...new Array(this.getFirstWeekDay).join(" ").split(" "),
+        ...new Array(this.getFirstWeekDay === 0? 7: this.getFirstWeekDay).join("0").split(""),
         ...this.daysArray,
-        ...new Array(7 - this.getLastWeekDay).join(" ").split(" "),
+        ...new Array(9 - this.getLastWeekDay).join("0").split(""),
       ];
     },
     chunkNormalizedArray() {
@@ -73,8 +109,10 @@ export default {
           subArray.push(element);
         } else {
           subArray.push(element);
-          if (chunkedArray.length === 5) chunkedArray.push(subArray);
         }
+      }
+      if (chunkedArray.length === 5) {
+        chunkedArray.push(Array(8).join("0").split(""));
       }
       return chunkedArray;
     },
@@ -90,12 +128,39 @@ export default {
 
         for (let element of subArr) {
           let td = document.createElement("td");
-          td.innerHTML = element;
+          if (element === "0") {
+            td.innerHTML = " ";
+            td.style.background = "rgba(255, 255, 255, 0.05)";
+          } else {
+            td.innerHTML = element;
+          }
           tr.appendChild(td);
         }
 
         table.appendChild(tr);
       }
+      console.log("table");
+    },
+
+    prev() {
+      if (this.month === 0) {
+        this.month = 11;
+        this.year--;
+      } else {
+        this.month--;
+      }
+      this.createTable();
+    },
+
+    next() {
+      if (this.month === 11) {
+        this.month = 0;
+        this.year++;
+      } else {
+        this.month++;
+      }
+      // console.log(this.getFirstWeekDay, this.year, this.normalizedArray)
+      this.createTable();
     },
   },
 };
