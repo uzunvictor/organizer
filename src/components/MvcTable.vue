@@ -94,7 +94,9 @@ export default {
     },
     normalizedArray() {
       return [
-        ...new Array(this.getFirstWeekDay === 0? 7: this.getFirstWeekDay).join("0").split(""),
+        ...new Array(this.getFirstWeekDay === 0 ? 7 : this.getFirstWeekDay)
+          .join("0")
+          .split(""),
         ...this.daysArray,
         ...new Array(9 - this.getLastWeekDay).join("0").split(""),
       ];
@@ -132,7 +134,13 @@ export default {
             td.innerHTML = " ";
             td.style.background = "rgba(255, 255, 255, 0.05)";
           } else {
+            //td.innerHTML = `<router-link :to="{ name: 'day-route' }">${element}</router-link>`;
             td.innerHTML = element;
+            td.dataset.id = `${this.year}-${this.month}-${element}`;
+            let self = this;
+            td.addEventListener("click", function () {
+              self.pushToDayPage(this.dataset.id);
+            });
           }
           tr.appendChild(td);
         }
@@ -140,6 +148,11 @@ export default {
         table.appendChild(tr);
       }
       console.log("table");
+    },
+
+    pushToDayPage(dataset) {
+      console.log(dataset);
+      this.$router.push({ name: "day-route", params: { slug: dataset } });
     },
 
     prev() {
