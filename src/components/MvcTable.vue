@@ -67,16 +67,6 @@ export default {
   },
 
   computed: {
-    // year() {
-    //   return this.today.getFullYear();
-    // },
-    // month: {
-    //   get() {
-    //     return this.today.getMonth();
-    //   },
-    //   set(value) {
-    //     return value;
-    //   },
     // },
     daysInMonth() {
       return new Date(this.year, this.month + 1, 0).getDate();
