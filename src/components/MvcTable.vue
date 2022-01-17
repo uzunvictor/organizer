@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="blur-background"></div>
     <div class="table-container">
       <div class="info">{{ monthsData[month] }} {{ year }}</div>
       <table class="table">
@@ -67,17 +66,6 @@ export default {
   },
 
   computed: {
-    // year() {
-    //   return this.today.getFullYear();
-    // },
-    // month: {
-    //   get() {
-    //     return this.today.getMonth();
-    //   },
-    //   set(value) {
-    //     return value;
-    //   },
-    // },
     daysInMonth() {
       return new Date(this.year, this.month + 1, 0).getDate();
     },
@@ -134,7 +122,6 @@ export default {
             td.innerHTML = " ";
             td.style.background = "rgba(255, 255, 255, 0.05)";
           } else {
-            //td.innerHTML = `<router-link :to="{ name: 'day-route' }">${element}</router-link>`;
             td.innerHTML = element;
             td.dataset.id = `${this.year}-${this.month}-${element}`;
             let self = this;
@@ -151,7 +138,22 @@ export default {
     },
 
     pushToDayPage(dataset) {
-      console.log(dataset);
+      const newDataset = dataset.split("-").map((item) => +item);
+      const dayIndex = new Date(...newDataset).getDay();
+      const monthIndex = new Date(...newDataset).getMonth();
+      const month = this.monthsData[monthIndex];
+      const year = newDataset[0];
+
+      const date = {
+        weekDay: this.daysData[dayIndex],
+        day: newDataset[2],
+        month:
+          month[month.length - 1] === "т"
+            ? month + "а"
+            : month.slice(0, -1) + "я",
+        year,
+      };
+      this.$store.commit("updateChosenDate", date);
       this.$router.push({ name: "day-route", params: { slug: dataset } });
     },
 
@@ -172,7 +174,6 @@ export default {
       } else {
         this.month++;
       }
-      // console.log(this.getFirstWeekDay, this.year, this.normalizedArray)
       this.createTable();
     },
   },

@@ -1,5 +1,8 @@
 <template>
+  <div>
+    <div class="blur-background"></div>
     <router-view />
+  </div>
 </template>
 
 <script>

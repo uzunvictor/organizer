@@ -1,13 +1,11 @@
 const state = {
-    today: null,
-    month: null,
-    year: null,
-    interval: null,
+    chosenDate: null,
+
 }
 
-const mutations = {  
-    update(state) {
-        state.date = new Date();
+const mutations = {
+    updateChosenDate(state, payload) {
+        state.chosenDate = payload;
     },
 }
 
@@ -24,18 +22,3 @@ export default {
     mutations,
     actions
 }
-
-// state: {
-//     date: null,
-//         interval: null,
-//   },
-// mutations: {
-//     start(state) {
-//         if (!state.interval) {
-//             state.interval = setInterval(() => this.commit('update'), 1000);
-//         }
-//     },
-//     update(state) {
-//         state.date = new Date();
-//     },
-// },
