@@ -126,3 +126,86 @@ td {
 td:hover {
  background-color: rgba(255, 255, 255, 0.384);
 }
+
+.tasks {
+    text-align: left;
+    padding: 5px;
+}
+.tasks-header {
+    display: flex;                  
+    flex-direction: row;            
+    flex-wrap: nowrap;              
+    justify-content: space-between; 
+}
+
+.tasks-date {
+    /* text-align: left; */
+    padding: 15px;
+    margin: 20px;
+}
+
+.create-new-task {
+    vertical-align: middle;
+    min-width: 400px;
+    min-height: 60px;
+    padding: 5px; 
+    margin: 20px; 
+    border: 0.5px solid rgb(255, 255, 255);
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255, 0.03);
+    font-size: 20px;
+    color:rgb(255, 255, 255);
+    cursor: pointer;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+    transition: 0.4s ease-out;
+}
+
+.create-new-task:hover {
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 98;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 30px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+ transition: transform 0.2s;
+}
+
+.slide-enter,
+.slide-leave-to {
+ transform: translateY(-50%) translateX(100vw);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+
+    min-width: 900px;
+    min-height: 450px;
+    background-color: rgba(255, 255, 255, 0.411);
+    border-radius: 16px;
+    padding: 25px;
+}
+
