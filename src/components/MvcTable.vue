@@ -66,6 +66,10 @@ export default {
   },
 
   computed: {
+<<<<<<< HEAD
+=======
+    // },
+>>>>>>> 6cf414f980f8256f2b9f9348982884c1ee7492c2
     daysInMonth() {
       return new Date(this.year, this.month + 1, 0).getDate();
     },
