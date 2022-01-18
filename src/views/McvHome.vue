@@ -7,7 +7,7 @@ import MvcTable from "@/components/MvcTable.vue";
 
 export default {
   components: { MvcTable },
-  name: "Home",
+  name: "McvHome",
 };
 </script>
 

@@ -4,34 +4,25 @@
       <h1 class="tasks-date">
         {{ weekDay }}, {{ day }} {{ month }} {{ year }}
       </h1>
-      <button class="create-new-task" @click="createNewTask">New Task</button>
+      <button class="button" @click="createNewTask">Novaia zadacha</button>
     </div>
 
     <mcv-tasks />
-    <transition name="fade" appear>
-      <div class="modal-overlay" v-if="isTask" @click="isTask = false"></div>
-    </transition>
-    <transition name="slide" appear>
-    <div class="modal" v-if="isTask">
-      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi aliquid minus obcaecati deserunt, voluptas totam eveniet laborum harum doloribus facilis?</p>
-      <!-- Alt + z -->
-      <button class="button" @click="isTask = false">Hide</button>
-    </div>
-    </transition>
+    <mcv-new-task />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import McvTasks from "@/components/McvTasks";
+import McvNewTask from "@/components/McvNewTask";
 
 export default {
   name: "McvDay",
-
-  data() {
+   data() {
     return {
       isTask: false,
+      taskTitle: "",
     };
   },
 
@@ -53,11 +44,12 @@ export default {
 
   components: {
     McvTasks,
+    McvNewTask,
   },
 
   methods: {
     createNewTask() {
-      this.isTask = true;
+      this.$store.commit('changeIsTask')
     },
   },
 };

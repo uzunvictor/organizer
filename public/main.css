@@ -43,7 +43,7 @@ body, html {
 .container {
     background-color: rgba(8, 31, 163, 0.13);
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
@@ -81,10 +81,13 @@ body, html {
     position: absolute;
     text-align: center;
     left: 5%;
-    top: 10%;
+    top: 7%;
     color: #fff;
     font-size: 20px;
     font-weight: bold;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
 }
 
 .prev {
@@ -94,10 +97,33 @@ body, html {
     border:rgb(255, 255, 255) inset 0.2px;
     border-radius: 20px;
     padding: 5px 20px;
+    min-width: 200px;
+    min-height: 30px;
+    color:rgb(255, 255, 255);
+    cursor: pointer;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+    transition: 0.4s ease-out;
+    /* vertical-align: middle;
+   
+    padding: 5px; 
+    margin: 20px; 
+    border: 0.5px solid rgb(255, 255, 255);
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255, 0.03);
+    font-size: 20px;
+     */
+
 }
 
-.prev:hover {
-    background-color: rgba(255, 255, 255, 0.384);
+.prev:hover, 
+.next:hover {
+    background-color: rgba(255, 255, 255, 0.192);
+}
+
+.prev:active, 
+.next:active {
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+    transform: translateY(4px);
 }
 
 .next {
@@ -107,11 +133,14 @@ body, html {
     border:rgb(255, 255, 255) inset 0.2px;
     border-radius: 20px;
     padding: 5px 20px;
+    min-width: 200px;
+    min-height: 30px;
+    color:rgb(255, 255, 255);
+    cursor: pointer;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+    transition: 0.4s ease-out;
 }
 
-.next:hover {
-    background-color: rgba(255, 255, 255, 0.384);
-}
 
 td {
     border: inset 0.2px rgb(255, 255, 255);
@@ -136,6 +165,7 @@ td:hover {
     flex-direction: row;            
     flex-wrap: nowrap;              
     justify-content: space-between; 
+    align-items: baseline;
 }
 
 .tasks-date {
@@ -144,7 +174,7 @@ td:hover {
     margin: 20px;
 }
 
-.create-new-task {
+.button {
     vertical-align: middle;
     min-width: 400px;
     min-height: 60px;
@@ -160,9 +190,15 @@ td:hover {
     transition: 0.4s ease-out;
 }
 
-.create-new-task:hover {
+.button:hover {
     box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+    background-color: rgba(255, 255, 255, 0.26);
 }
+
+.button:active {
+    box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+    transform: translateY(4px);
+  }
 
 .modal-overlay {
     position: absolute;
@@ -207,5 +243,40 @@ td:hover {
     background-color: rgba(255, 255, 255, 0.411);
     border-radius: 16px;
     padding: 25px;
+}
+
+.new-task-title {
+    width: 100%;
+    min-height: 40px;
+    border-radius: 30px;
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0.466);
+    font-size: x-large;
+    text-align: center; 
+    color:rgb(255, 255, 255);
+  
+}
+
+.new-task-title:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    outline: none !important;
+}
+
+.new-task-body {
+    margin-top: 30px;
+    width: 100%;
+    min-height: 200px;
+    background-color: rgba(255, 255, 255, 0.466);
+    font-size: medium;
+    text-align: center; 
+    color:rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.466);
+    border-radius: 30px;
+    border-style: none;
+}
+
+.new-task-body:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    outline: none !important;
 }
 
