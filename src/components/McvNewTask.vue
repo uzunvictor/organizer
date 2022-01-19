@@ -16,7 +16,7 @@
           v-model="taskBody"
           placeholder="task body ..."
         />
-        <button class="button" @click="hideModal">Dobaviti</button>
+        <button class="button" @click="addNewTask">Dobaviti</button>
       </div>
     </transition>
   </div>
@@ -25,6 +25,7 @@
 <script>
 import frag from "vue-frag";
 import { mapState } from "vuex";
+import { getItem, setItem } from "../helpers/storage";
 
 export default {
   name: "McvNewTask",
@@ -32,10 +33,17 @@ export default {
     frag,
   },
 
+  props: {
+    dataset: {
+      type: String,
+      required: true,
+    },
+  },
+
   data() {
     return {
-      taskTitle: "",
-      taskBody: "",
+      taskTitle: "title",
+      taskBody: "body",
     };
   },
 
@@ -46,7 +54,18 @@ export default {
   },
 
   methods: {
-    hideModal() {
+    addNewTask() {
+      if (!getItem(this.dataset)) {
+        setItem(this.dataset, [{ title: this.taskTitle, body: this.taskBody }]);
+      } else {
+        const task = getItem(this.dataset);
+        task.push({
+          title: this.taskTitle,
+          body: this.taskBody,
+        });
+
+        setItem(this.dataset, task);
+      }
       this.$store.commit("changeIsTask");
     },
   },

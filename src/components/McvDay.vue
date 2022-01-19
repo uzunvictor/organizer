@@ -7,19 +7,19 @@
       <button class="button" @click="createNewTask">Novaia zadacha</button>
     </div>
 
-    <mcv-tasks />
-    <mcv-new-task />
+    <mcv-tasks :dataset="dataset" />
+    <mcv-new-task :dataset="dataset" />
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
 import McvTasks from "@/components/McvTasks";
 import McvNewTask from "@/components/McvNewTask";
+import { getItem } from "../helpers/storage";
 
 export default {
   name: "McvDay",
-   data() {
+  data() {
     return {
       isTask: false,
       taskTitle: "",
@@ -27,19 +27,28 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      weekDay: (state) => state.timeStore.chosenDate.weekDay,
-      day: (state) => state.timeStore.chosenDate.day,
-      month: (state) => state.timeStore.chosenDate.month,
-      year: (state) => state.timeStore.chosenDate.year,
-    }),
-    // zeroTags() {
-    //   return this.tags.length === 0;
-    // },
+    completDate() {
+      return getItem("today");
+    },
+    dataset() {
+      return this.completDate.dataset;
+    },
+    weekDay() {
+      return this.completDate.weekDay;
+    },
+    day() {
+      return this.completDate.day;
+    },
+    month() {
+      return this.completDate.month;
+    },
+    year() {
+      return this.completDate.year;
+    },
   },
 
   mounted() {
-    console.log("weekday", this.weekDay);
+    console.log("today", this.completDate);
   },
 
   components: {
@@ -49,7 +58,7 @@ export default {
 
   methods: {
     createNewTask() {
-      this.$store.commit('changeIsTask')
+      this.$store.commit("changeIsTask");
     },
   },
 };

@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { setItem } from "../helpers/storage";
+
 export default {
   name: "MvcTable",
 
@@ -62,7 +64,8 @@ export default {
   mounted() {
     //this.$store.dispatch("start");
     this.createTable();
-    console.log("year", this.year);
+    //this.setTimeToLocalStorage();
+    // console.log("year", this.year);
   },
 
   computed: {
@@ -127,6 +130,7 @@ export default {
             let self = this;
             td.addEventListener("click", function () {
               self.pushToDayPage(this.dataset.id);
+              self.setTimeToLocalStorage(this.dataset.id);
             });
           }
           tr.appendChild(td);
@@ -134,26 +138,10 @@ export default {
 
         table.appendChild(tr);
       }
-      console.log("table");
     },
 
     pushToDayPage(dataset) {
-      const newDataset = dataset.split("-").map((item) => +item);
-      const dayIndex = new Date(...newDataset).getDay();
-      const monthIndex = new Date(...newDataset).getMonth();
-      const month = this.monthsData[monthIndex];
-      const year = newDataset[0];
-
-      const date = {
-        weekDay: this.daysData[dayIndex],
-        day: newDataset[2],
-        month:
-          month[month.length - 1] === "т"
-            ? month + "а"
-            : month.slice(0, -1) + "я",
-        year,
-      };
-      this.$store.commit("updateChosenDate", date);
+      //this.$store.commit("updateChosenDate", date);
       this.$router.push({ name: "day-route", params: { slug: dataset } });
     },
 
@@ -175,6 +163,32 @@ export default {
         this.month++;
       }
       this.createTable();
+    },
+
+    setTimeToLocalStorage(dataset) {
+      // const dayIndex = this.today.getDay();
+      // const weekDay = this.daysData[dayIndex];
+      // const day = this.today.getDate();
+      // const monthIndex = this.month;
+      // const month = this.monthsData[monthIndex];
+      // const year = this.year;
+      const newDataset = dataset.split("-").map((item) => +item);
+      const dayIndex = new Date(...newDataset).getDay();
+      const monthIndex = new Date(...newDataset).getMonth();
+      const month = this.monthsData[monthIndex];
+      const year = newDataset[0];
+      const weekDay = this.daysData[dayIndex];
+
+      setItem("today", {
+        dataset,
+        weekDay,
+        day: newDataset[2],
+        month:
+          month[month.length - 1] === "т"
+            ? month + "а"
+            : month.slice(0, -1) + "я",
+        year,
+      });
     },
   },
 };
