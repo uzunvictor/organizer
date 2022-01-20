@@ -43,13 +43,15 @@ body, html {
 .container {
     background-color: rgba(8, 31, 163, 0.13);
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
     width: 90%;
-    height: 90%;
+    min-height: 90%;
+    height: auto;
     padding: 0;
+    margin-top: 100px;
     text-align: center;
     border-radius: 30px;
     color: #fff;
@@ -280,3 +282,17 @@ td:hover {
     outline: none !important;
 }
 
+ul {
+    list-style-type: none;
+}
+
+.task-item {
+    border:solid 0.5px rgb(255, 255, 255);
+    border-radius: 30px;
+    margin: 5px;
+    padding: 15px;
+}
+
+.task-item:hover {
+    background-color: rgba(255, 255, 255, 0.26);
+}

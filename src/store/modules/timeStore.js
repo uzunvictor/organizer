@@ -9,13 +9,8 @@ const mutations = {
     },
 }
 
-const actions = {
-    start(state) {
-        if (!state.interval) {
-            state.interval = setInterval(() => this.commit('update'), 1000);
-        }
-    }
-}
+const actions = {}
+
 
 export default {
     state,

@@ -1,5 +1,14 @@
 <template>
-  <div class="tasks">{{ tasksList }}</div>
+  <div class="tasks">
+    <ul>
+      <li v-for="taskItem in tasksList" :key="taskItem.id">
+        <div class="task-item">
+          <h2>{{ taskItem.title }}</h2>
+          <p>{{ taskItem.body }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -22,7 +31,8 @@ export default {
   },
 
   mounted() {
-    this.tasksList.push(getItem(this.dataset));
+    this.tasksList = getItem(this.dataset);
+    console.log("tasksList", this.tasksList);
   },
 };
 </script>

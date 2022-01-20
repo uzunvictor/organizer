@@ -166,12 +166,6 @@ export default {
     },
 
     setTimeToLocalStorage(dataset) {
-      // const dayIndex = this.today.getDay();
-      // const weekDay = this.daysData[dayIndex];
-      // const day = this.today.getDate();
-      // const monthIndex = this.month;
-      // const month = this.monthsData[monthIndex];
-      // const year = this.year;
       const newDataset = dataset.split("-").map((item) => +item);
       const dayIndex = new Date(...newDataset).getDay();
       const monthIndex = new Date(...newDataset).getMonth();

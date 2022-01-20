@@ -4,6 +4,7 @@
       <h1 class="tasks-date">
         {{ weekDay }}, {{ day }} {{ month }} {{ year }}
       </h1>
+      <button class="button" @click="goHome">Domoi</button>
       <button class="button" @click="createNewTask">Novaia zadacha</button>
     </div>
 
@@ -47,9 +48,9 @@ export default {
     },
   },
 
-  mounted() {
-    console.log("today", this.completDate);
-  },
+  // mounted() {
+  //   console.log("today", this.completDate);
+  // },
 
   components: {
     McvTasks,
@@ -60,6 +61,9 @@ export default {
     createNewTask() {
       this.$store.commit("changeIsTask");
     },
+    goHome() {
+      this.$router.push({ name: "home" });
+    }
   },
 };
 </script>

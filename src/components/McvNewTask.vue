@@ -56,10 +56,17 @@ export default {
   methods: {
     addNewTask() {
       if (!getItem(this.dataset)) {
-        setItem(this.dataset, [{ title: this.taskTitle, body: this.taskBody }]);
+        setItem(this.dataset, [
+          {
+            id: this.dataset,
+            title: this.taskTitle,
+            body: this.taskBody,
+          },
+        ]);
       } else {
         const task = getItem(this.dataset);
         task.push({
+          id: this.dataset,
           title: this.taskTitle,
           body: this.taskBody,
         });
